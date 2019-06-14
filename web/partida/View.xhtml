@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PartidaViewDlg" widgetVar="PartidaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPartidaTitle}">
+            <h:form id="PartidaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{partidaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPartidaLabel_id}"/>
+                        <h:outputText value="#{partidaController.selected.id}" title="#{bundle.ViewPartidaTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewPartidaLabel_tiempoEspera}"/>
+                        <h:outputText value="#{partidaController.selected.tiempoEspera}" title="#{bundle.ViewPartidaTitle_tiempoEspera}"/>
+                        <h:outputText value="#{bundle.ViewPartidaLabel_tiempoPartidaJugador1}"/>
+                        <h:outputText value="#{partidaController.selected.tiempoPartidaJugador1}" title="#{bundle.ViewPartidaTitle_tiempoPartidaJugador1}"/>
+                        <h:outputText value="#{bundle.ViewPartidaLabel_tiempoPartidaJugador2}"/>
+                        <h:outputText value="#{partidaController.selected.tiempoPartidaJugador2}" title="#{bundle.ViewPartidaTitle_tiempoPartidaJugador2}"/>
+                        <h:outputText value="#{bundle.ViewPartidaLabel_jugada}"/>
+                        <h:outputText value="#{partidaController.selected.jugada}" title="#{bundle.ViewPartidaTitle_jugada}"/>
+                        <h:outputText value="#{bundle.ViewPartidaLabel_empate}"/>
+                        <p:selectBooleanCheckbox value="#{partidaController.selected.empate}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewPartidaLabel_ganador}"/>
+                        <h:outputText value="#{partidaController.selected.ganador}" title="#{bundle.ViewPartidaTitle_ganador}"/>
+                        <h:outputText value="#{bundle.ViewPartidaLabel_jugador1}"/>
+                        <h:outputText value="#{partidaController.selected.jugador1}" title="#{bundle.ViewPartidaTitle_jugador1}"/>
+                        <h:outputText value="#{bundle.ViewPartidaLabel_jugador2}"/>
+                        <h:outputText value="#{partidaController.selected.jugador2}" title="#{bundle.ViewPartidaTitle_jugador2}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PartidaViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

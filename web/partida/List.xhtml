@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListPartidaTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="PartidaListForm">
+                <p:panel header="#{bundle.ListPartidaTitle}">
+                    <p:dataTable id="datalist" value="#{partidaController.items}" var="item"
+                                 selectionMode="single" selection="#{partidaController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPartidaTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPartidaTitle_tiempoEspera}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tiempoEspera}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPartidaTitle_tiempoPartidaJugador1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tiempoPartidaJugador1}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPartidaTitle_tiempoPartidaJugador2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tiempoPartidaJugador2}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPartidaTitle_jugada}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.jugada}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPartidaTitle_empate}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.empate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPartidaTitle_ganador}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ganador}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPartidaTitle_jugador1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.jugador1}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPartidaTitle_jugador2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.jugador2}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{partidaController.prepareCreate}" update=":PartidaCreateForm" oncomplete="PF('PartidaCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PartidaViewForm" oncomplete="PF('PartidaViewDialog').show()" disabled="#{empty partidaController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PartidaEditForm" oncomplete="PF('PartidaEditDialog').show()" disabled="#{empty partidaController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{partidaController.destroy}" update=":growl,datalist" disabled="#{empty partidaController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

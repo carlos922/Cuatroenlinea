@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Grafo No Dirigido</title>
+        <style type="text/css">
+            .ui-diagram-element {
+                border:0.1em dotted #E5E4E2; 
+                background-color: #EFEEEC;
+                width:2em; 
+                height:2em;
+                text-align: center;
+                border-radius: 50px;
+              
+            }
+
+            .ui-diagram-element:hover {
+                background-color: #C7C6C4;
+            }
+            .flow-label {
+                font-size: 15px;
+                font-weight: bold;
+                color: crimson;
+            }
+            
+            .ui-diagram-element-ficha-verde{
+                border:0.1em dotted #E5E4E2; 
+                background-color: greenyellow;
+                width:2em; 
+                height:2em;
+                text-align: center;
+                border-radius: 50px;   
+            }
+            .ui-diagram-element-ficha-roja{
+                border:0.1em dotted #FF0000; 
+                background-color: red;
+                width:2em; 
+                height:2em;
+                text-align: center;
+                border-radius: 50px;
+            }
+            
+            .ui-diagram-element-ficha-azul {   
+                border: 1px solid #404a4e;
+                width:2em; 
+                height:2em;
+                text-align: center;
+                border-radius: 50px;
+
+            }
+           
+            
+        </style>
+    </h:head>
+    <h:body>
+
+        <h:form id="frmGrafo">
+       
+            <p:menubar>
+                        <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                        <p:submenu label="#{bundle.Maintenance}">
+                            <p:menuitem value="Administrador" outcome="/administrador/List.xhtml" />
+                            <p:menuitem value="Jugador" outcome="/jugador/List.xhtml" />
+                            <p:menuitem value="Partida" outcome="/partida/List.xhtml" />
+                        </p:submenu>
+                         <p:menuitem value="Iniciar el juego" outcome="/dashboard.xhtml" icon="ui-icon-star"/>
+                         <p:menuitem value="Salir" action="#{loginController.cerrarSesion()}" icon="ui-icon-power"/>
+                        
+                    </p:menubar>
+            
+            <p:growl id="grwErrores" showDetail="true"/>
+            <p:panel id="pnlDiagram" header="Cuatro en linea "  >
+                 
+                <p:diagram value="#{controladorGrafo.model}" var="el"
+                           id="diagrama"  style="height:400px" styleClass="ui-widget-content" >
+
+
+                    <p:ajax event="connect" listener="#{controladorGrafo.onConnect}" />
+                    <p:ajax event="disconnect" listener="#{controladorGrafo.onDisconnect}" />
+                    <p:ajax event="connectionChange" listener="#{controladorGrafo.onConnectionChange}" />
+
+                </p:diagram>
+            </p:panel>
+
+
+        </h:form>
+
+
+        <p:accordionPanel>
+            
+      <p:tab title="Realizar Jugada">
+                <h:form id="frmCiudad">
+                    <center>
+                            <p:outputLabel value="Número de columna a soltar la ficha:"/>
+                            <p:inputText required="true" value="#{controladorGrafo.numColumna}" />
+                            <p:commandButton ajax="false" value="Jugar" action="#{controladorGrafo.realizarJugada()}" update="@all"/>
+                       
+                    </center>
+                </h:form>
+            </p:tab>
+            
+            
+            <!--
+            <p:tab title="Ruta más corta">
+                <h:form id="frmRuta">
+                    <p:panelGrid columns="4">
+                        <p:outputLabel value="Inicio"/>
+                        <p:selectOneMenu value="#{controladorGrafo.codigoInicio}">
+                            <f:selectItems value="#{controladorGrafo.grafoND.vertices}"
+                                           var="vert" itemValue="#{vert.codigo}"
+                                           itemLabel="#{vert.dato.nombre}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Inicio"/>
+                        <p:selectOneMenu value="#{controladorGrafo.codigoFinal}">
+                            <f:selectItems value="#{controladorGrafo.grafoND.vertices}"
+                                           var="vert" itemValue="#{vert.codigo}"
+                                           itemLabel="#{vert.dato.nombre}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton value="Calcular Ruta" ajax="false" update="tblRuta" action="#{controladorGrafo.calcularRutaCorta()}"/>
+
+                    <p:dataTable id="tblRuta" value="#{controladorGrafo.rutaCorta}" var="ruta">
+                        <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Origen"/>
+                            </f:facet>
+                            <p:outputLabel value="#{ruta.dato.nombre}"/>
+                        </p:column>                        
+                    </p:dataTable>
+                </h:form>
+            </p:tab>
+            
+            
+            <p:tab title="Crear Ciudad">
+                <h:form id="frmCiudad">
+                    <center>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Nombre:"/>
+                            <p:inputText required="true" value="#{controladorGrafo.ciudad.nombre}" />
+                      
+                            <p:outputLabel value="Pos x:"/>
+                            <p:inputText required="true" value="#{controladorGrafo.ciudad.posx}"/>
+                            <p:outputLabel value="Pos y:"/>
+                            <p:inputText required="true" value="#{controladorGrafo.ciudad.posy}"/>
+
+                            <p:commandButton ajax="false" value="Adicionar" action="#{controladorGrafo.adicionarCiudad()}" update="@all"/>
+                            <p:commandButton immediate="true" ajax="false" value="Cancelar" action="#{controladorGrafo.limpiarCiudad()}" update="@all"/>
+
+                        </p:panelGrid>
+                    </center>
+                </h:form>
+            </p:tab>
+-->
+            <p:tab title="Aristas">
+                <h:form id="frmAristas">
+                    <p:dataTable value="#{controladorGrafo.grafoND.aristas}" var="arista" editable="true">
+                        <p:ajax event="rowEdit" listener="#{controladorGrafo.onRowEdit}"  />
+                        <p:ajax event="rowEditCancel" listener="#{controladorGrafo.onRowCancel}"  />
+                        <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Origen"/>
+                            </f:facet>
+                            <p:outputLabel value="#{arista.origen}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Destino"/>
+                            </f:facet>
+                            <p:outputLabel value="#{arista.destino}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Peso"/>
+                            </f:facet>
+                            <p:cellEditor>
+                                <f:facet name="output"><p:outputLabel value="#{arista.peso}"/></f:facet>
+                                <f:facet name="input">
+                                    <p:spinner min="1" value="#{arista.peso}"/>
+                                </f:facet>
+                            </p:cellEditor>
+
+
+                        </p:column>
+                        <p:column style="width:32px">
+                            <p:rowEditor />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:tab>
+
+
+        </p:accordionPanel>
+
+
+    </h:body>
+</html>
+

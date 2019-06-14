@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="index.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="jugador/Edit.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="welcomePrimefaces.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="administrador/Edit.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="partida/List.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="*" x="1150" y="300" zoom="true"/>
+        <Node id="jugador/View.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="jugador/List.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="dashboard.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="login.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="faces/login.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="loginUsuario.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="administrador/View.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="jugador/Create.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="partida/Edit.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="template.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="administrador/List.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="partida/Create.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="partida/View.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="administrador/Create.xhtml" x="650" y="450" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

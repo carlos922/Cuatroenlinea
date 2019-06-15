@@ -52,6 +52,7 @@ public class ControladorGrafo implements Serializable {
     private int codigoInicio = 0;
     private int codigoFinal = 0;
     private int numColumna = 1;
+         int numeroFicha=1;
     int ancho = 7;
     int alto = 6;
     int numVerticesTotal = ancho * alto;
@@ -355,6 +356,7 @@ public class ControladorGrafo implements Serializable {
                     }
                 }
             }
+        
             contadorNumAristaApintar++;
         }
         
@@ -362,15 +364,18 @@ public class ControladorGrafo implements Serializable {
 
     }
 
-    
+
     public void realizarJugada(){
         ciudad.setEstado(true);
         //restamos uno (1) al numero de columna que envie el usuario ya que 
         //los vertices se cuentan desde cero (0)
         int almacenarNumColum = numColumna;
         numColumna=numColumna-1;
+        
+                 
+        if(numColumna<=ancho-1) {
             
-        //si el primer vertice de la columna esta usado (pintado) mostramos el mensaje "ya se uso toda la columna"  
+            //si el primer vertice de la columna esta usado (pintado) mostramos el mensaje "ya se uso toda la columna"  
             if(grafoND.getVertices().get(numColumna).getDato().getEstado()){
                 FacesMessage msg = new FacesMessage("ya se uso toda la columna");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -406,8 +411,9 @@ public class ControladorGrafo implements Serializable {
                 }
             
             }
+        }        
 
-    }
+    } 
     
     public void adicionarCiudad() {
         grafoND.adicionarVertice(new Vertice(grafoND.getVertices().size() + 1,

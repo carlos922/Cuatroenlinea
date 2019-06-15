@@ -10,8 +10,8 @@
         <Node id="*" x="1150" y="300" zoom="true"/>
         <Node id="jugador/View.xhtml" x="150" y="300" zoom="true"/>
         <Node id="jugador/List.xhtml" x="150" y="600" zoom="true"/>
-        <Node id="dashboard.xhtml" x="400" y="750" zoom="true"/>
         <Node id="login.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="dashboard.xhtml" x="400" y="750" zoom="true"/>
         <Node id="faces/login.xhtml" x="900" y="450" zoom="true"/>
         <Node id="loginUsuario.xhtml" x="650" y="600" zoom="true"/>
         <Node id="administrador/View.xhtml" x="400" y="450" zoom="true"/>

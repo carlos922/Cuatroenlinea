@@ -364,8 +364,59 @@ public class ControladorGrafo implements Serializable {
 
     }
 
+        public void realizarJugada(){
+        ciudad.setEstado(true);
+        //restamos uno (1) al numero de columna que envie el usuario ya que 
+        //los vertices se cuentan desde cero (0)
+        int almacenarNumColum = numColumna;
+        
+        numColumna=numColumna-1;
+        
+                 
+        if(numColumna<=ancho-1) {
+            
+        
+            //si el primer vertice de la columna esta usado (pintado) mostramos el mensaje "ya se uso toda la columna"  
+            if(grafoND.getVertices().get(numColumna).getDato().getEstado()){
+                FacesMessage msg = new FacesMessage("ya se uso toda la columna");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }else 
+                //sino, si no se ha pintado, se continua sumando el ancho o
+                //numero de columnas para pasar al vertide de abajo 
+                if(grafoND.getVertices().get(numColumna).getDato().getEstado()==false){
+                boolean bandera = false;
+                while(bandera==false){
+                     numColumna=numColumna+ancho;
+                     
+                    //si es el ultimo vertice y no se ha pintado, se pinta, su estado cambia a true 
+                    if(numColumna>=(numVerticesTotal)){
+                         Element elem1= model.getElements().get(numColumna-ancho);
+                         grafoND.getVertices().get(numColumna-ancho-1).setDato(ciudad);
+                         elem1.setStyleClass("ui-diagram-element-ficha-verde"); 
+                     numColumna=almacenarNumColum;
+                     bandera=true;
+                     break;
+                     } else  
+                        
+                        //sino se pinta el vertice anterior
+                        if(grafoND.getVertices().get(numColumna).getDato().getEstado()==true) {
+                     
+                        Element elem1= model.getElements().get(numColumna-ancho);
+                        numColumna --;
+                        grafoND.getVertices().get(numColumna-ancho).setDato(ciudad);
+                        elem1.setStyleClass("ui-diagram-element-ficha-verde");
+                        numColumna=almacenarNumColum;
+                        bandera=true;
+                        break;
+                         
+                     }                    
+                }
+            numColumna --;
+            }
+        }
+    } 
 
-    public void realizarJugada(){
+    /*public void realizarJugada(){
         ciudad.setEstado(true);
         //restamos uno (1) al numero de columna que envie el usuario ya que 
         //los vertices se cuentan desde cero (0)
@@ -375,6 +426,7 @@ public class ControladorGrafo implements Serializable {
                  
         if(numColumna<=ancho-1) {
             
+        
             //si el primer vertice de la columna esta usado (pintado) mostramos el mensaje "ya se uso toda la columna"  
             if(grafoND.getVertices().get(numColumna).getDato().getEstado()){
                 FacesMessage msg = new FacesMessage("ya se uso toda la columna");
@@ -411,9 +463,8 @@ public class ControladorGrafo implements Serializable {
                 }
             
             }
-        }        
-
-    } 
+        }
+    } */
     
     public void adicionarCiudad() {
         grafoND.adicionarVertice(new Vertice(grafoND.getVertices().size() + 1,

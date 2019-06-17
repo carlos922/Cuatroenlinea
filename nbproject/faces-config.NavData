@@ -7,8 +7,8 @@
         <Node id="welcomePrimefaces.xhtml" x="150" y="150" zoom="true"/>
         <Node id="administrador/Edit.xhtml" x="900" y="150" zoom="true"/>
         <Node id="partida/List.xhtml" x="1400" y="150" zoom="true"/>
-        <Node id="*" x="1150" y="300" zoom="true"/>
         <Node id="jugador/View.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="*" x="1150" y="300" zoom="true"/>
         <Node id="jugador/List.xhtml" x="150" y="600" zoom="true"/>
         <Node id="login.xhtml" x="1150" y="150" zoom="true"/>
         <Node id="dashboard.xhtml" x="400" y="750" zoom="true"/>
